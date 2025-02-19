@@ -50,6 +50,10 @@ import FileList from "@/views/Layout/components/FileList.vue";
       border: 1px solid #d7d7d7;
       background-color: #f6f6f6;
     }
+
+    .icon-jia {
+      font-size: 24px;
+    }
   }
 }
 
