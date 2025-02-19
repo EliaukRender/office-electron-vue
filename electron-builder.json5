@@ -3,7 +3,7 @@
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "appId": "YourAppID",
   "asar": true,
-  "productName": "AI体育考试视频下载系统",
+  "productName": "Elk Office",
   "directories": {
     "output": "release/${version}"
   },

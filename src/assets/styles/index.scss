@@ -1,2 +1,8 @@
+/* 基本样式重置 */
 @use "./reset.scss";
+
+/* 全局公共样式 */
 @use "./common.scss";
+
+/* iconfont字体 */
+@use "../iconfont/iconfont.css";

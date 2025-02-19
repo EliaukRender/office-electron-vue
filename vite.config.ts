@@ -1,17 +1,21 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import electron from 'vite-plugin-electron/simple'
 import pkg from './package.json'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
+import {resolve} from "path";
+import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
-  fs.rmSync('dist-electron', { recursive: true, force: true })
+export default defineConfig(({command, mode}) => {
+  fs.rmSync('dist-electron', {recursive: true, force: true})
 
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV);
   const isServe = command === 'serve'
   const isBuild = command === 'build'
   const sourcemap = isServe || !!process.env.VSCODE_DEBUG
@@ -19,18 +23,25 @@ export default defineConfig(({ command }) => {
   return {
     plugins: [
       vue(),
+      vueJsx(), // vue可以使用jsx/tsx语法
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),
       Components({
         resolvers: [ElementPlusResolver()],
       }),
-
+      // 使用 svg 图标
+      createSvgIconsPlugin({
+        iconDirs: [
+          resolve(process.cwd(), "src/assets/svg")
+        ], // src/assets/svg文件夹下统一存放svg图片
+        symbolId: "icon-[dir]-[name]"
+      }),
       electron({
         main: {
           // Shortcut of `build.lib.entry`
           entry: 'electron/main/index.ts',
-          onstart({ startup }) {
+          onstart({startup}) {
             if (process.env.VSCODE_DEBUG) {
               console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App')
             } else {

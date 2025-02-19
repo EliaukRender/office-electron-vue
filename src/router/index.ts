@@ -1,23 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import Login from '@/views/login/index.vue';
-import Download from '@/views/download/index.vue';
+import Layout from '@/views/Layout/index.vue';
 
-// 定义路由
+// 路由
 const routes = [
   {
     path: '/',
-    redirect: '/login',
+    redirect: '/layout',
   },
   {
-    path: '/login',
-    name: 'login',
-    component: Login,
-  },
-  {
-    path: '/download',
-    name: 'download',
-    component: Download,
+    path: '/layout',
+    name: 'layout',
+    component: Layout,
   },
 ];
 
